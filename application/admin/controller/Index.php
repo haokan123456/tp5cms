@@ -5,7 +5,7 @@ use think\Db;
 class Index
 {
     public function index()
-    {
+    {    	
         return view();
     }
 }

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:60:"D:\www\tpcms\public/../application/admin\view\cate\clst.html";i:1543541636;s:54:"D:\www\tpcms\application\admin\view\common\header.html";i:1543226272;s:52:"D:\www\tpcms\application\admin\view\common\left.html";i:1543655614;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:60:"D:\www\tpcms\public/../application/admin\view\cate\edit.html";i:1543463497;s:54:"D:\www\tpcms\application\admin\view\common\header.html";i:1543226272;s:52:"D:\www\tpcms\application\admin\view\common\left.html";i:1543655614;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -401,66 +401,136 @@
 			<div id="content" class="span10">
 				<div class="box span12">
 					<div class="box-header">
-						<h2><i class="icon-table"></i>栏目列表</h2>
+						<h2><i class="icon-table"></i>添加栏目</h2>
 					</div>
 					<div class="box-content">
-						<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper" role="grid"><div class="row-fluid"><div class="span6"><div id="DataTables_Table_0_length" class="dataTables_length"><label><select size="1" name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"><option value="10" selected="selected">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> records per page</label></div></div><div class="span6"><div class="dataTables_filter" id="DataTables_Table_0_filter"><label>Search: <input type="text" aria-controls="DataTables_Table_0"></label></div></div></div><table class="table table-striped table-bordered bootstrap-datatable datatable dataTable" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
-						  <thead>
-							  <tr role="row"><th width='2%'></th><th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending" style="width: 5%;text-align:center;">栏目id</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Date registered: activate to sort column ascending" style="">栏目名称</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Role: activate to sort column ascending" style="width: 10%; text-align:center">栏目属性</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 10%; text-align:center">是否隐藏</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending" style="width: 20%;text-align:center;">操作</th></tr>
-						  </thead>   
-					<style>
-						.cate_list td:first-child span{							
-							display: inline-block;
-							width:16px;
-							height: 16px;
-							margin:0 auto;
-							text-align: center;
-							line-height: 16px;
-							border:1px solid #000;
-							vertical-align: middle;
-						}
-
-						.cate_list td{
-							vertical-align: middle;							
-						}
-
-						.cate_list td:first-child{
-							line-height:45px;
-							text-align: center;
-							cursor: pointer;
-						}
-					</style>
-					  <tbody role="alert" aria-live="polite" aria-relevant="all" class='cate_list'>
-					  		<?php if(is_array($data) || $data instanceof \think\Collection || $data instanceof \think\Paginator): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$val): $mod = ($i % 2 );++$i;?>
-					  		<tr class="odd" level="<?php echo $val['level']; ?>" style='display:none;' pid="<?php echo $val['pid']; ?>" aid='<?php echo $val['id']; ?>'>
-					  			<td><span>+</span></td>
-								<td class="  sorting_1" style='text-align:center;'><?php echo $val['id']; ?></td>
-								<td class="center " level="<?php echo $val['level']; ?>"><?php echo str_repeat('-',$val['level']*4)?><?php echo $val['catename']; ?><a href="addchild/pid/<?php echo $val['id']; ?>"><button class="btn btn-small btn-primary" style='float:right'>添加子栏目</button></a></td>
-								<td class="center " style='text-align:center;'><?php if(($val['type'] == 0)): ?>频道封面<?php elseif(($val['type'] == 1)): ?>最终列表栏目<?php else: ?>外部链接<?php endif; ?></td>
-								<td class="center " style='text-align:center;'>
-									<span class="label <?php if(($val['ishide'] == 1)): ?>label-important<?php else: ?>label-success<?php endif; ?>" style='cursor:pointer;'><?php if(($val['ishide'] == 1)): ?>显示<?php else: ?>隐藏<?php endif; ?></span>
-									<input type="hidden" value='<?php echo $val['id']; ?>' class='cateid'>
-								</td>
-								<td class="center" style='text-align:center'>									
-									<a class="btn btn-info" href="edit/tit/<?php echo $val['id']; ?>">
-										<i class="icon-edit "></i>                                            
-									</a>
-									<a class="btn btn-danger" href="del/tid/<?php echo $val['id']; ?>">
-										<i class="icon-trash "></i> 
-									</a>
-								</td>								
-							</tr>
-							<?php endforeach; endif; else: echo "" ;endif; ?>							
-
-						</tbody>
-					</table>
-					<style>						
-						.pagination li{
-							display: inline-block;	
-							padding:0 8px;						
-						}
-					</style>
-					</div>            
+						<form class="form-horizontal" action='/index.php/admin/cate/xiugai' method='POST'>
+							<fieldset>
+								<div class="control-group">
+									<input type="hidden" value='<?php echo $data['id']; ?>' name='id'>
+									<label class="control-label" for="inputWarning">栏目名称</label>
+									<div class="controls">
+							  			<input type="text" name="catename" value='<?php echo $data['catename']; ?>'>
+							  			<span class="help-inline" style='font-size: 24px;'>*</span>
+									</div>
+						  		</div>
+							</fieldset>
+							<fieldset>
+								<div class="control-group">
+									<label class="control-label" for="selectError3">内容模型</label>
+									<div class="controls">
+									  <select id="selectError3" name='cate_model'>
+										<option value='1'>文章模型</option>										
+									  </select>
+									</div>
+								  </div>
+							</fieldset>
+							<fieldset>
+								<div class="control-group">
+								<label class="control-label">是否隐藏</label>
+								<div class="controls">
+								  <label class="radio" style='float:left;'>
+									<div class="radio" id="uniform-optionsRadios1"><span class="checked"><input type="radio" name="ishide" value="0" <?php if(($data['ishide'] == 0)): ?>checked="true"<?php endif; ?>></span></div>
+									是
+								  </label>								  
+								  <label class="radio" style='float:left;padding-top: 5px;'>
+									<div class="radio" id="uniform-optionsRadios2"><span><input type="radio" name="ishide" value="1" <?php if(($data['ishide'] == 1)): ?>checked="true"<?php endif; ?>></span></div>
+									否
+								  </label>
+								</div>
+							  </div>
+							</fieldset>
+							<fieldset>
+								<div class="control-group">
+									<label class="control-label" for="selectError3">栏目属性</label>
+									<div class="controls">
+									  <select id="selecttype" name='type'>
+										<option value='0' <?php if(($data['type'] == 0)): ?>selected<?php endif; ?>>频道封面</option>
+										<option value='1' <?php if(($data['type'] == 1)): ?>selected<?php endif; ?>>最终列表栏目</option>
+										<option value='2' <?php if(($data['type'] == 2)): ?>selected<?php endif; ?>>外部链接</option>
+									  </select>
+									</div>
+								  </div>
+							</fieldset>
+							<fieldset>
+								<div class="control-group rect" style='display: none;' >
+									<label class="control-label" for="inputWarning">外部链接</label>
+									<div class="controls">
+							  			<input type="text" name="siteurl" value='<?php echo $data['siteurl']; ?>'>
+							  			<span class="help-inline" style='font-size: 24px;'>*</span>
+									</div>
+						  		</div>
+							</fieldset>
+							<fieldset>
+								<div class="control-group">
+									<label class="control-label" for="inputWarning">封面模板</label>
+									<div class="controls">
+							  			<input type="text" name="tplindex" value='<?php echo $data['tplindex']; ?>'>
+							  			<span class="help-inline"></span>
+									</div>
+						  		</div>
+							</fieldset>
+							<fieldset>
+								<div class="control-group">
+									<label class="control-label" for="inputWarning">列表模板</label>
+									<div class="controls">
+							  			<input type="text" name="tpllist" value='<?php echo $data['tpllist']; ?>'>
+							  			<span class="help-inline"></span>
+									</div>
+						  		</div>
+							</fieldset>
+							<fieldset>
+								<div class="control-group">
+									<label class="control-label" for="inputWarning">内容模板</label>
+									<div class="controls">
+							  			<input type="text" name="tplarc" value='<?php echo $data['tplarc']; ?>'>
+							  			<span class="help-inline"></span>
+									</div>
+						  		</div>
+							</fieldset>
+							<fieldset>
+								<div class="control-group">
+									<label class="control-label" for="inputWarning">排列顺序</label>
+									<div class="controls">
+							  			<input type="text" name="orderid" value='<?php echo $data['orderid']; ?>' style='width: 30px;'>
+							  			<span class="help-inline"></span>
+									</div>
+						  		</div>
+							</fieldset>
+							<fieldset>
+								<div class="control-group">
+									<label class="control-label" for="inputWarning">SEO标题</label>
+									<div class="controls">
+							  			<input type="text" name="seotitle" value='<?php echo $data['seotitle']; ?>'>
+							  			<span class="help-inline"></span>
+									</div>
+						  		</div>
+							</fieldset>
+							<fieldset>
+								<div class="control-group">
+									<label class="control-label" for="inputWarning">关键字</label>
+									<div class="controls">
+							  			<input type="text" name="keywords" value='<?php echo $data['keywords']; ?>'>
+							  			<span class="help-inline"></span>
+									</div>
+						  		</div>
+							</fieldset>
+							<fieldset>
+								<div class="control-group">
+									<label class="control-label" for="inputWarning">栏目描述</label>
+									<div class="controls">
+										<textarea tabindex="3" class="input-xlarge span4" id="message" name="description" rows="6" placeholder="Click here to reply" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 120px;color:#000 !important;resize:none;"><?php echo $data['description']; ?></textarea>
+									</div>
+						  		</div>								
+							</fieldset>
+							<fieldset>
+								<div class="control-group">									
+									<div class="controls">
+							  			<input type="submit" class='btn btn-large btn-primary' value="确定">						  			
+									</div>
+						  		</div>
+							</fieldset>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -495,7 +565,7 @@
 
 	<!-- start: JavaScript-->
 		<script src="/static/admin/js/jquery-1.10.2.min.js"></script>
-		<script src="/static/admin/js/jquery-migrate-1.2.1.min.js"></script>	
+	<script src="/static/admin/js/jquery-migrate-1.2.1.min.js"></script>	
 		<script src="/static/admin/js/jquery-ui-1.10.3.custom.min.js"></script>	
 		<script src="/static/admin/js/jquery.ui.touch-punch.js"></script>	
 		<script src="/static/admin/js/modernizr.js"></script>	
@@ -504,11 +574,11 @@
 		<script src='js/fullcalendar.min.js'></script>	
 		<script src='js/jquery.dataTables.min.js'></script>
 		<script src="/static/admin/js/excanvas.js"></script>
-		<script src="/static/admin/js/jquery.flot.js"></script>
-		<script src="/static/admin/js/jquery.flot.pie.js"></script>
-		<script src="/static/admin/js/jquery.flot.stack.js"></script>
-		<script src="/static/admin/js/jquery.flot.resize.min.js"></script>
-		<script src="/static/admin/js/jquery.flot.time.js"></script>
+	<script src="/static/admin/js/jquery.flot.js"></script>
+	<script src="/static/admin/js/jquery.flot.pie.js"></script>
+	<script src="/static/admin/js/jquery.flot.stack.js"></script>
+	<script src="/static/admin/js/jquery.flot.resize.min.js"></script>
+	<script src="/static/admin/js/jquery.flot.time.js"></script>
 		
 		<script src="/static/admin/js/jquery.chosen.min.js"></script>	
 		<script src="/static/admin/js/jquery.uniform.min.js"></script>		
@@ -525,75 +595,25 @@
 		<script src="/static/admin/js/jquery.sparkline.min.js"></script>	
 		<script src="/static/admin/js/counter.min.js"></script>	
 		<script src="/static/admin/js/raphael.2.1.0.min.js"></script>
-		<script src="/static/admin/js/justgage.1.0.1.min.js"></script>	
+	<script src="/static/admin/js/justgage.1.0.1.min.js"></script>	
 		<script src="/static/admin/js/jquery.autosize.min.js"></script>	
 		<script src="/static/admin/js/retina.js"></script>
 		<script src="/static/admin/js/jquery.placeholder.min.js"></script>
 		<script src="/static/admin/js/wizard.min.js"></script>
 		<script src="/static/admin/js/core.min.js"></script>	
 		<script src="/static/admin/js/charts.min.js"></script>	
-		
+		<script src="/static/admin/js/custom.min.js"></script>
 
 		<script>			
-			$(function(){			
-				var sec=$("#selecttype");
-				var rect=$('.rect');
-				sec.change(function(){
-					// console.log($(this).val());
-					if($(this).val()==2){					
-						rect.fadeIn();
-					}
-				});
-
-				var cate=$('.cate_list');
-				var fadeout=cate.find('.odd td:nth-of-type(5) .label');
-				// console.log(fadeout);
-				fadeout.click(function(){
-					var n=$(this).html();
-					console.log(123123);
-					var cate=$(this).next().val();					
-					if(n=="隐藏"){
-						$(this).html('显示')
-						.css('background','red');
-						chide(1);
-					}
-					else{
-						$(this).html('隐藏')
-						.css('background','#78cd51');
-						chide(0);
-					}
-				});
-
-				function chide(n){
-					$.ajax({
-						datetype:'json',
-						data:{'cateid':n,'ishide':n},
-						url:'chghide'
-					}).done(function(data){
-						alert(data);
-					})
+			var sec=$("#selecttype");
+			var rect=$('.rect');
+			sec.change(function(){
+				console.log($(this).val());
+				if($(this).val()==2){					
+					rect.fadeIn();
 				}
-
-				var cate_list=$('.cate_list');
-				var lsst=cate_list.find('tr[level=0]').show();
-
-				var o=cate_list.find('td:first-child span');
-				o.click(function(){
-					if($(this).html()=='+'){
-						var aid=$(this).parents('tr').attr('aid');
-						cate_list.find('tr[pid='+aid+']').show();
-						$(this).html('-');
-					}
-					else{
-						var aid=$(this).parents('tr').attr('aid');
-						cate_list.find('tr[pid='+aid+']').hide();
-						$(this).html('+');	
-					}
-				})				
 			});
 		</script>
-
-		<script src="/static/admin/js/custom.min.js"></script>
 	<!-- end: JavaScript-->
 	
 		

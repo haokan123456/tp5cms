@@ -65,15 +65,15 @@
 			<div id="content" class="span10">
 				<div class="box span12">
 					<div class="box-header">
-						<h2><i class="icon-table"></i>栏目列表</h2>
+						<h2><i class="icon-table"></i>模型列表</h2>
 					</div>
 					<div class="box-content">
 						<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper" role="grid"><div class="row-fluid"><div class="span6"><div id="DataTables_Table_0_length" class="dataTables_length"><label><select size="1" name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"><option value="10" selected="selected">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> records per page</label></div></div><div class="span6"><div class="dataTables_filter" id="DataTables_Table_0_filter"><label>Search: <input type="text" aria-controls="DataTables_Table_0"></label></div></div></div><table class="table table-striped table-bordered bootstrap-datatable datatable dataTable" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
 						  <thead>
-							  <tr role="row"><th width='2%'></th><th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending" style="width: 5%;text-align:center;">栏目id</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Date registered: activate to sort column ascending" style="">栏目名称</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Role: activate to sort column ascending" style="width: 10%; text-align:center">栏目属性</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 10%; text-align:center">是否隐藏</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending" style="width: 20%;text-align:center;">操作</th></tr>
+							  <tr role="row"><th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending" style="width: 5%;text-align:center;">模型id</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Date registered: activate to sort column ascending" style="width:40%;text-align:center;">模型名称</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Role: activate to sort column ascending" style="width: 20%; text-align:center">附加表</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 20%; text-align:center">状态</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending" style="text-align:center;">操作</th></tr>
 						  </thead>   
 					<style>
-						.cate_list td:first-child span{							
+						.cate_list td:first-child span{
 							display: inline-block;
 							width:16px;
 							height: 16px;
@@ -90,33 +90,31 @@
 
 						.cate_list td:first-child{
 							line-height:45px;
-							text-align: center;
-							cursor: pointer;
+							text-align: center;	
+							cursor: pointer;													
 						}
 					</style>
 					  <tbody role="alert" aria-live="polite" aria-relevant="all" class='cate_list'>
 					  		{volist name='data' id='val'}
-					  		<tr class="odd" level="{$val.level}" style='display:none;' pid="{$val.pid}" aid='{$val.id}'>
-					  			<td><span>+</span></td>
-								<td class="  sorting_1" style='text-align:center;'>{$val.id}</td>
-								<td class="center " level="{$val.level}"><?php echo str_repeat('-',$val['level']*4)?>{$val.catename}<a href="addchild/pid/{$val.id}"><button class="btn btn-small btn-primary" style='float:right'>添加子栏目</button></a></td>
-								<td class="center " style='text-align:center;'>{if($val.type eq 0)}频道封面{elseif($val.type eq 1)}最终列表栏目{else}外部链接{/if}</td>
-								<td class="center " style='text-align:center;'>
-									<span class="label {if($val.ishide eq 1)}label-important{else}label-success{/if}" style='cursor:pointer;'>{if($val.ishide eq 1)}显示{else}隐藏{/if}</span>
-									<input type="hidden" value='{$val.id}' class='cateid'>
-								</td>
-								<td class="center" style='text-align:center'>									
-									<a class="btn btn-info" href="edit/tit/{$val.id}">
-										<i class="icon-edit "></i>                                            
-									</a>
-									<a class="btn btn-danger" href="del/tid/{$val.id}">
-										<i class="icon-trash "></i> 
-									</a>
-								</td>								
-							</tr>
-							{/volist}							
-
-						</tbody>
+						  		<tr class="odd">
+									<td class="  sorting_1" style='text-align:center;'>{$val.id}</td>
+									<td class="center ">{$val.m_name}</td>
+									<td class="center " style='text-align:center;'>{$val.m_table}</td>
+									<td class="center " style='text-align:center;'>
+										<span class="label {if($val.m_status eq 1)}label-important{else}label-success{/if}" style='cursor:pointer;'>{if($val.m_status eq 0)}未启用{else}启用{/if}</span>
+										<input type="hidden" value='{$val.id}' class='cateid'>
+									</td>
+									<td class="center" style='text-align:center'>									
+										<a class="btn btn-info" href="{:url('edit',['m_id'=>$val.id])}">
+											<i class="icon-edit "></i>                                            
+										</a>
+										<a class="btn btn-danger" href="{:url('del',['id'=>$val.id])}">
+											<i class="icon-trash "></i> 
+										</a>
+									</td>								
+								</tr>
+							{/volist}
+					</tbody>
 					</table>
 					<style>						
 						.pagination li{
@@ -210,32 +208,30 @@
 				});
 
 				var cate=$('.cate_list');
-				var fadeout=cate.find('.odd td:nth-of-type(5) .label');
-				// console.log(fadeout);
+				var fadeout=cate.find('.odd td:nth-of-type(4) .label');				
 				fadeout.click(function(){
 					var n=$(this).html();
-					console.log(123123);
-					var cate=$(this).next().val();					
-					if(n=="隐藏"){
-						$(this).html('显示')
+					var m_id=$(this).next().val();
+					
+					if(n=="未启用"){
+						$(this).html('启用')
 						.css('background','red');
-						chide(1);
+						chide(m_id,1);						
 					}
 					else{
-						$(this).html('隐藏')
+						$(this).html('未启用')
 						.css('background','#78cd51');
-						chide(0);
+						chide(m_id,0);
 					}
 				});
 
-				function chide(n){
+				function chide(m_id,n){
 					$.ajax({
 						datetype:'json',
-						data:{'cateid':n,'ishide':n},
-						url:'chghide'
-					}).done(function(data){
-						alert(data);
-					})
+						data:{'m_id':m_id,'act':n},
+						url:'act'
+					}).done(function(data){						
+					});
 				}
 
 				var cate_list=$('.cate_list');
